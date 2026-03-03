@@ -28,7 +28,7 @@ export const SideBar = () => {
             <div>
                 <div className="-mx-6 px-6 py-4">
                     <Link href="/dashboard" title="dashboard">
-                        <Image src='/logo.jpeg' className="" alt="logo" width={100} height={20} />
+                        <Image src='/logo.jpeg' className="items-center justify-center ml-17" alt="logo" width={100} height={20} />
                     </Link>
                 </div>
 
