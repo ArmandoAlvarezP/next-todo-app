@@ -1,3 +1,6 @@
+// export const dynamic = 'force-dynamic';  // Solo se usa en versiones de next anteriores a la 15 
+// export const revalidate = 0;
+
 import prisma from "@/lib/prisma";
 import { TodosGrid } from '@/todos';
 import { NewTodo } from '@/components';
@@ -6,7 +9,7 @@ import { NewTodo } from '@/components';
 export default async function ServerTodosPage() {
 
     const todos = await prisma.todo.findMany({ orderBy: { description: 'asc' } });
-    
+    console.log('construido');
 
     return (
         <>
