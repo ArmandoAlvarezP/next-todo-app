@@ -1,3 +1,4 @@
+export { TabBar } from "./TabBar";
 export { NewTodo } from "./NewTodo";
 export { WidgetItem } from "./WidgetItem";
 export { TopMenu } from "./TopMenu";

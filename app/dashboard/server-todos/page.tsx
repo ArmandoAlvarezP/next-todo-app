@@ -8,8 +8,7 @@ import { NewTodo } from '@/components';
 
 export default async function ServerTodosPage() {
 
-    const todos = await prisma.todo.findMany({ orderBy: { description: 'asc' } });
-    console.log('construido');
+    const todos = await prisma.todo.findMany({ orderBy: { description: 'asc' } }); 
 
     return (
         <>
