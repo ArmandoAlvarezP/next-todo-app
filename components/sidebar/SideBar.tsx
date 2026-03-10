@@ -1,8 +1,11 @@
 import Image from "next/image"
-import Link from "next/link"
 import { SideBarItem } from './SideBarItem';
-import { CiLogout } from "react-icons/ci";
-import { IoBasketOutline, IoCalendarOutline, IoCheckboxOutline, IoCodeWorkingOutline, IoListOutline } from "react-icons/io5";
+import { 
+    IoBasketOutline, IoCalendarOutline, IoCheckboxOutline, IoCodeWorkingOutline, IoListOutline, IoPersonOutline 
+} from "react-icons/io5";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { LogoutButton } from './LogoutButton';
 
 const items = [
     {
@@ -30,9 +33,21 @@ const items = [
         icon: <IoBasketOutline size={30}/>,
         href: '/dashboard/products'
     },
+    {
+        title: 'Perfil',
+        icon: <IoPersonOutline size={30}/>,
+        href: '/dashboard/profile'
+    },
 ]
 
-export const SideBar = () => {
+export const SideBar = async () => {
+
+    const session = await getServerSession(authOptions);
+
+    const userName = session?.user?.name ?? 'No name'; 
+    const avatarURL = session?.user?.image ?? '/IMG_2026.JPG'; 
+    // TODO: const userRole = session?.user?.
+
     return (
         <aside className="ml-[-100%] fixed z-10 top-0 pb-3 px-6 w-full flex flex-col justify-between h-screen border-r bg-white transition duration-300 md:w-4/12 lg:ml-0 lg:w-[25%] xl:w-[20%] 2xl:w-[15%]">
             <div>
@@ -43,8 +58,14 @@ export const SideBar = () => {
                 </div> */}
 
                 <div className="mt-8 text-center">
-                    <Image src="/IMG_2026.JPG" alt="user" className=" m-auto rounded-full object-cover" width={100} height={50}/>
-                    <h5 className="hidden mt-4 text-xl font-semibold text-gray-600 lg:block">Dua Lipa</h5>
+                    <Image 
+                        src={avatarURL} 
+                        alt="user" 
+                        className=" m-auto rounded-full object-cover" 
+                        width={100} 
+                        height={50}
+                    />
+                    <h5 className="hidden mt-4 text-xl font-semibold text-gray-600 lg:block">{userName}</h5>
                     <span className="hidden text-gray-400 lg:block">Admin</span>
                 </div>
 
@@ -59,10 +80,7 @@ export const SideBar = () => {
             </div>
 
             <div className="px-6 -mx-6 pt-4 flex justify-between items-center border-t">
-                <button className="px-4 py-3 flex items-center space-x-4 rounded-md text-gray-600 group">
-                    <CiLogout />
-                    <span className="group-hover:text-gray-700">Logout</span>
-                </button>
+                <LogoutButton />
             </div>
         </aside>
 
